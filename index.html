@@ -123,10 +123,10 @@
 </head>
 <body>
     <button id="toggleSound" class="music">Music OFF</button>
-    <audio id="birthdayMusic" src="./img/music.mp3" volume="0.3" loop autoplay></audio>
+    <audio id="birthdayMusic" src="./img/music.mp3" loop autoplay></audio>
     <script src="./img/sakura.js"></script>
     <script>
-      var sakura = new Sakura('body');
+        var sakura = new Sakura('body');
     </script>
     <div class="container test_obj">
         <h1>사랑하는 윤애의</br>🎉 생일을 축하해요 🎉</h1>
@@ -282,16 +282,46 @@
         function scrollToTop() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-        // 배경 이미지 랜덤 위치 설정
+        
         document.addEventListener("DOMContentLoaded", function () {
-            let images = document.querySelectorAll(".floating-image");
-            images.forEach(img => {
-                let x = Math.random() * window.innerWidth - 100; // 화면 너비 내 랜덤 위치
-                let y = Math.random() * window.innerHeight - 100; // 화면 높이 내 랜덤 위치
-                img.style.left = `${x}px`;
-                img.style.top = `${y}px`;
-            });
+        let images = document.querySelectorAll(".floating-image");
+        let positions = []; // 배치된 이미지 위치를 저장할 배열
+
+        images.forEach(img => {
+            let x, y;
+            let overlap; // 겹침 여부를 확인할 변수
+            const imgWidth = img.offsetWidth; // 이미지의 너비
+            const imgHeight = img.offsetHeight; // 이미지의 높이
+
+            do {
+                overlap = false; // 초기 겹침 여부
+                x = Math.random() * (window.innerWidth - imgWidth); // 화면 너비 내 랜덤 위치
+                y = Math.random() * (window.innerHeight - imgHeight); // 화면 높이 내 랜덤 위치
+
+                // 현재 위치가 기존 위치와 겹치는지 확인
+                for (let pos of positions) {
+                    if (
+                        x < pos.x + imgWidth &&
+                        x + imgWidth > pos.x &&
+                        y < pos.y + imgHeight &&
+                        y + imgHeight > pos.y
+                    ) {
+                        overlap = true; // 겹치면 true로 설정
+                        break; // 반복문 탈출
+                    }
+                }
+            } while (overlap); // 겹치지 않을 때까지 반복
+
+            // 위치 저장
+            positions.push({ x, y });
+
+            // 이미지 위치 설정
+            img.style.position = "absolute"; // 위치 설정을 위해 absolute로 변경
+            img.style.left = `${x}px`;
+            img.style.top = `${y}px`;
         });
+    });
+
         
     </script>
 </body>
