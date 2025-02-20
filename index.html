@@ -9,12 +9,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* 화면 높이 이상일 경우 스크롤 가능 */
             background: linear-gradient(135deg, #A4DDED, #78C2C4);
             text-align: center;
             font-family: 'Arial', sans-serif;
             position: relative;
-            overflow: hidden;
+            flex-direction: column;
         }
         .container {
             background: white;
@@ -30,6 +30,7 @@
         .message {
             font-size: 18px;
             margin: 20px 0;
+            text-align: center;
         }
         .btn {
             padding: 10px 20px;
@@ -50,7 +51,6 @@
             width: 100px; /* 이미지 크기 조절 가능 */
             opacity: 0.7;
         }
-
         /* 버튼 세로로 나열 */
         .button-container {
             display: flex;
@@ -66,6 +66,9 @@
             margin-top: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            background: #e4faff;
+        }
+        p {
             text-align: left;
         }
         .info-block h3, .album-block h3, .letter-block h3 {
@@ -75,17 +78,58 @@
 
         /* 프로필 블럭에 오른쪽 정렬된 이미지 추가 */
         .profile-image {
-            width: 70px;
-            height: auto;
+            width: 200px;
             float: right; /* 이미지 오른쪽 정렬 */
             margin-left: 20px; /* 텍스트와의 간격 */
         }
+        .top-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #d99de4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            align-items: center;
+        }
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translate3d(0, 10%, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translateZ(0);
+            }
+        }
+        .test_obj {
+            position: relative;
+            animation: fadeInUp 1s;
+        }
+        .music {
+            align-items: right;
+            padding: 5px 10px;
+            background: #d99de4;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 10px;
+            margin: 10px 0;
+        }
     </style>
+    <link rel="stylesheet" href="./img/sakura.css">
 </head>
 <body>
-    <div class="container">
-        <h1>사랑하는 윤애의</br>🎉 탄생일을 축하 🎉</h1>
-        <p class="message">아래의 버튼을 하나씩 클릭해줄래?</p>
+    <button id="toggleSound" class="music">Music OFF</button>
+    <audio id="birthdayMusic" src="./img/music.mp3" loop autoplay></audio>
+    <script src="./img/sakura.js"></script>
+    <script>
+      var sakura = new Sakura('body');
+    </script>
+    <div class="container test_obj">
+        <h1>사랑하는 윤애의</br>🎉 생일을 축하해요 🎉</h1>
+        <p class="message">아래의 버튼을 하나씩 클릭!</p>
 
         <div class="button-container">
             <button class="btn" onclick="toggleBlock('info')">윤애의 프로필</button>
@@ -93,47 +137,108 @@
             <button class="btn" onclick="toggleBlock('letter')">윤애를 사랑하는 사람들의 편지</button>
         </div>
 
-        <div id="infoBlock" class="info-block">
-            <h3>Profile : YAMADA YUNE</h3>
-            <img src="img1.png" class="profile-image"> <!-- 오른쪽 정렬된 이미지 -->
+        <div id="infoBlock" class="info-block test_obj">
+            <h3>Profile</h3>
+            <img src="./img/profile.png" alt="윤애의 프로필 사진" class="profile-image"> <!-- 오른쪽 정렬된 이미지 -->
             <p>이름 : 야마다 윤애</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;山田ゆん愛</p>
             <p>나이 : 27세</p>
-            <p>취미 : 게임, 그림</p>
+            <p>생년월일 : 1998년 02월 22일🎂</p>
+            <p>취미 : 게임🎮, 애니시청📺</p>
+            <p>특기 : 그림🎨, 상담💬</p>
+            <p>혈액형 : 🅱️</p>
+            <p>좋아하는 것 : 한교동, 하이바라 아이(코난), 커피, 피너츠</p>
+            <p>타입 : 💧</p>
+            <p>최근에 빠진 것 : 龍が如く👊</p>
+            <br>
+            <p><b>윤애의 TMI(To Much Information)</b></p>
+            <p>1. 게임할때 승부욕이 있음(심지어 잘함)</p>
+            <p>2. 벽으로 이동하는 잠버릇이 있음</p>
+            <p>3. 좋아하는 음식 취향이 아저씨같음</p>
+            <p>4. 남편을 놀리는 것을 굉장히 좋아함</p>
+            <p>5. 굉장히 작고 귀여움(본인은 잘 모르는 것 같기도 함)</p>
+            <br>
+            <p><b>윤애의 생일에 대하여</b></p>
+            <p>1. 일본에서는 2월 22일이 고양이, 닌자, 대머리의 날입니다!</p>
+            <p>2. 미국의 초대 대통령인 조지 워싱턴의 생일도 2월 22일입니다.</p>
+            <p>3. 전날인 2월 21일에는 최초의 젤다의 전설 게임이 세상에 드러났습니다.</p>
+            <p>4. 2013년 2월 22일은 천일국 1년 1월 1일 출발의 날이었습니다.</p>
+            <p>5. 데스벨리의 성염을 만든 날도 2월 22일이었습니다.</p>
+            <button class="top-button" onclick="scrollToTop()">TOP</button>
             <!-- 프로필 정보 추가 -->
         </div>
 
-        <div id="albumBlock" class="album-block">
-            <h3>추가 예정</h3>
-            <img src="album1.jpg" alt="사진1" style="width: 100%; max-width: 300px; margin-bottom: 10px;">
-            <img src="album2.jpg" alt="사진2" style="width: 100%; max-width: 300px; margin-bottom: 10px;">
+        <div id="albumBlock" class="album-block test_obj">
+            <h3>함께했던 순간들✨</h3>
+            <img src="./img/album1.jpg" alt="사진1" style="width: 100%; margin-bottom: 10px;">
+            <img src="./img/album2.jpg" alt="사진2" style="width: 100%; margin-bottom: 10px;">
+            <img src="./img/album3.jpg" alt="사진2" style="width: 100%; margin-bottom: 10px;">
+            <img src="./img/album4.jpg" alt="사진2" style="width: 100%; margin-bottom: 10px;">
+            <img src="./img/album5.jpg" alt="사진2" style="width: 100%; margin-bottom: 10px;">
+            <img src="./img/album6.jpg" alt="사진2" style="width: 100%; margin-bottom: 10px;">
+            <img src="./img/album7.jpg" alt="사진2" style="width: 100%; margin-bottom: 10px;">
+            <img src="./img/album8.jpg" alt="사진2" style="width: 100%; margin-bottom: 10px;">
             <!-- 추억 사진 추가 -->
+            <button class="top-button" onclick="scrollToTop()">TOP</button>
         </div>
 
-        <div id="letterBlock" class="letter-block">
-            <h3>추가 예정</h3>
-            <!-- 편지 내용 추가 -->
+        <div id="letterBlock" class="letter-block test_obj">
+            <h4>📽️じーこちゃん</h4>
+            <video width="100%" controls>
+                <source src="./img/video.mp4" type="video/mp4">
+                브라우저가 비디오 태그를 지원하지 않습니다.
+            </video>
+            <h4>📽️なんこちゃん & 승찬</h4>
+            <video width="100%" controls>
+                <source src="./img/video2.mp4" type="video/mp4">
+                브라우저가 비디오 태그를 지원하지 않습니다.
+            </video>
+            <img src="./img/letter1.png" alt="사진2" style="width: 100%; margin-bottom: 10px;">
+            <h4>✉️ママ</h4>
+            <p>
+                ゆねちゃんは、本当に、自分より、相手の為に、生きれる子です。<br>
+                それが、自分が、幸せを感じ平安をもたらすことを知ってるから。<br>
+                <br>
+                天の父母様が、ゆん愛の意志以上に、導き、まだ１８才で天正宮に、呼んで、尚、天苑宮に、呼ぶのも、ゆん愛に会いたいからだと、思います。<br>
+                <br>
+                ジョンミンさんが、ゆねちゃんと、１回会っただけで、ゆねちゃんが、どんな女性か、理解したので、相対基準だから、<br>
+                この青年は、思ったとおり、素晴らしい青年だと、確信したの。
+                <br>
+                もちろん、ジョンミンも、ゆん愛も、成長過程だから、未完で、不足な点あっても、基台になる、心が、素晴らしと思うよ。<br>
+                <br>
+                お母さんが、いうのも、実の母が言うのだけど、<br>
+                ゆん愛のように、優しく、本当に、もてるものをあげても、あげても、またあげて、<br>
+                孝情を本当に、生まれたときから、持ってると思う。<br>
+                <br>
+                どうして、こんなに、良い子が、我が家に、生まれたのだろうか？と思う時が、あるよ。<br>
+                <br>
+                ご先祖さまの、功労かなあと思ったりします。<br>
+            </p>
+            <button class="top-button" onclick="scrollToTop()">TOP</button>
         </div>
 
         <p id="hiddenMessage" style="display:none; font-size: 20px; color: #ff4f81; margin-top: 15px;">너무너무 사랑해! 💕</p>
     </div>
 
     <!-- 배경에 추가할 이미지들 -->
-    <img src="img1.png" class="floating-image">
-    <img src="img2.png" class="floating-image">
-    <img src="img3.png" class="floating-image">
-    <img src="img4.png" class="floating-image">
-    <img src="img1.png" class="floating-image">
-    <img src="img2.png" class="floating-image">
-    <img src="img3.png" class="floating-image">
-    <img src="img4.png" class="floating-image">
-    <img src="img1.png" class="floating-image">
-    <img src="img2.png" class="floating-image">
-    <img src="img3.png" class="floating-image">
-    <img src="img4.png" class="floating-image">
-    <img src="img1.png" class="floating-image">
-    <img src="img2.png" class="floating-image">
-    <img src="img3.png" class="floating-image">
-    <img src="img4.png" class="floating-image">
+    <img src="./img/img1.png" class="floating-image">
+    <img src="./img/img2.png" class="floating-image">
+    <img src="./img/img3.png" class="floating-image">
+    <img src="./img/img4.png" class="floating-image">
+    <img src="./img/img5.png" class="floating-image">
+    <img src="./img/img6.png" class="floating-image">
+    <img src="./img/img7.png" class="floating-image">
+    <img src="./img/img8.png" class="floating-image">
+    <img src="./img/img9.png" class="floating-image">
+    <img src="./img/img10.png" class="floating-image">
+    <img src="./img/img11.png" class="floating-image">
+    <img src="./img/img12.png" class="floating-image">
+    <img src="./img/img13.png" class="floating-image">
+    <img src="./img/img13.png" class="floating-image">
+    <img src="./img/img13.png" class="floating-image">
+    <img src="./img/img8.png" class="floating-image">
+    <img src="./img/img8.png" class="floating-image">
+    <img src="./img/img8.png" class="floating-image">
+    <img src="./img/img8.png" class="floating-image">
 
     <script>
         function showLove() {
@@ -156,6 +261,26 @@
             }
         }
 
+        let isMuted = true;
+
+        function toggleSound() {
+            const audio = document.getElementById('birthdayMusic');
+            const button = document.getElementById('toggleSound');
+
+            if (isMuted) {
+                audio.muted = false; // 소리 켜기
+                button.textContent = 'Music OFF'; // 버튼 텍스트 변경
+            } else {
+                audio.muted = true; // 음소거
+                button.textContent = 'Music ON'; // 버튼 텍스트 변경
+            }
+            isMuted = !isMuted; // 상태 토글
+        }
+        document.getElementById('toggleSound').addEventListener('click', toggleSound);
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
         // 배경 이미지 랜덤 위치 설정
         document.addEventListener("DOMContentLoaded", function () {
             let images = document.querySelectorAll(".floating-image");
@@ -166,6 +291,7 @@
                 img.style.top = `${y}px`;
             });
         });
+        
     </script>
 </body>
 </html>
